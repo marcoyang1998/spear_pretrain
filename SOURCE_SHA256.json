@@ -1,0 +1,12 @@
+{
+  "zipformer2.py": "ca9b396580a71fab1396e948b977df1854184061fda6243f3f24b79420ac3601",
+  "scaling.py": "2018c857c1196ee2d5617f4a2d7edf6394df8fcf3c05cd9a06a3288a685a7a2b",
+  "subsampling.py": "c395058a7b9a049419fac99021084e6a5fac939cff4e15bd4ec66ca2998007eb",
+  "encoder_interface.py": "fc70f530c33e2489435ff2cb4bb0dad8b9d6f58a248c425cbd6100c62f628569",
+  "optim.py": "f1f3d055e4dc9ee60ff4c94f1ca667c6dd23d04d08ae0094f8e350b9b72301d5",
+  "model_multi_kd_multi_teacher.py": "9f407066855866acc592f7d32d5bcb3c184251af834eaeaf2821ddd51c1000b8",
+  "model_multi_kd_w2v2_mask.py": "c0441e02d8beb77856fafe49ce3e319134e91fe810a04a4d9cc8942667446e02",
+  "dataset2_token_mixing.py": "72baf6cc48df54cf456876ea55f9b467e3f2b3245795fe9a6cffbea55eb00961",
+  "augmentations.py": "de072405397d27508347a9106669bb1e9c3da69e10a15282d71be06e2b379b74",
+  "train_multi_KD3_shar_speech_audio_multi_mvq2_token_mixing.py": "e46cfa09f7dcc803151f5e2b0703db73579fbb2d9c69cc91ec1386137c667596"
+}

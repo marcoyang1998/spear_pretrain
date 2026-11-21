@@ -1,0 +1,11 @@
+# Tested ordinary Python dependencies. Use CUDA 12.8 torch/torchaudio wheels.
+# k2 is installed separately with its matching torch2.8.0/cuda12.8 build.
+# icefall is a sibling source checkout, supplied through PYTHONPATH.
+torch==2.8.0
+torchaudio==2.8.0
+numpy==2.2.6
+lhotse==1.33.0
+h5py==3.16.0
+multi-quantization==0.1.1
+tensorboard==2.21.0
+sentencepiece==0.2.2

@@ -1,0 +1,11 @@
+{
+  "teacher_fields": "wavlm_codebook_indexes,dasheng_codebook_indexes",
+  "num_codebooks": "16,8",
+  "codebook_size": "256,256",
+  "teacher_frame_rate": "50,25",
+  "teacher_loss_weights": "1.0,0.1",
+  "teacher_routing": "original",
+  "distillation_delta": "0,0",
+  "output_downsampling_factor": 1,
+  "precision": "bf16"
+}

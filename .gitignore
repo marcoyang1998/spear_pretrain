@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+exp/
+data/
+.checks/
+.vscode/
+download
