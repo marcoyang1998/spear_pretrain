@@ -1,7 +1,9 @@
 __pycache__/
 *.pyc
 exp/
-data/
+data/*
+!data/README.md
+!data/librispeech-spear-cb8-example.jsonl.gz
 .checks/
 .vscode/
 download

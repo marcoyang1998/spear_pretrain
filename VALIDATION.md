@@ -73,3 +73,14 @@ bf16 scaling differ, so this is a descriptive comparison.
 
 See [the experiment report](exp/spear_8gpu_20261120_2152/RESULTS.md) for configuration,
 checkpoint inspection, metrics, curves and comparison details.
+
+## Example launchers, 2026-11-21
+
+`run/train_spear_cb8.sh` records the explicit single-teacher recipe arguments;
+`run/train_example.sh` selects the five-item real-data sample for five updates.
+Shell syntax checks and the CPU suite passed. SLURM job **681319** passed the
+full GPU smoke suite and ran the example launcher with the default student on
+one A100 GPU. It processed all five cuts / 63.67 seconds and saved
+`checkpoint-5.pt` with finite model and running-average tensors. The output
+directory override was honored, and all five preserved source hashes matched.
+Artifacts are under `exp/example-launcher-check.KQn6xX/`.

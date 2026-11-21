@@ -38,6 +38,27 @@ with `train.py` and the same arguments, setting `PYTHONPATH` to the icefall chec
 There is no second cluster-specific trainer. SLURM GPU-node execution is required
 on this cluster; launchers do not submit full training jobs automatically.
 
+For the prepared SPEAR eight-codebook targets, [run/train_spear_cb8.sh](run/train_spear_cb8.sh)
+lists the complete recipe arguments: teacher metadata, student architecture,
+batching, masking/mixing, optimizer schedules, and checkpoint retention. It
+defaults to the full LibriSpeech SPEAR manifest and eight GPUs, using the settings
+from the four-hour benchmark. Its training budget is step/epoch based; the
+launcher's arguments do not impose a four-hour wall-time limit. Run it inside an
+A100 allocation and pass trailing CLI arguments to override any setting.
+The full manifest resolves relative audio paths through `download/LibriSpeech`
+at the project root; this workspace already has the dataset symlink.
+
+For the [five-item example manifest](data/README.md), run:
+
+```bash
+srun -p a100 --gres=gpu:2 --cpus-per-task=8 --mem=24G --time=00:15:00 \
+  bash run/train_example.sh
+```
+
+This uses one GPU for five updates, logs every step, and saves a checkpoint at
+step five. `run/train.sh` supplies the shared Python/DDP setup; the two example
+launchers provide explicit recipe arguments.
+
 `PYTHON` defaults to `/home/yangxiaoyu/miniconda3/envs/encoder/bin/python`;
 override it to use another compatible environment. `ICEFALL_ROOT` defaults to
 `../icefall`. These source files are local copies: runtime does not import
@@ -110,6 +131,9 @@ this project before training. The common single-teacher field `codebook_indexes`
 can be selected with `--teacher-fields codebook_indexes,dasheng_codebook_indexes`.
 Missing inactive-teacher fields are allowed. Missing/corrupt active targets fail
 with cut/teacher context, rather than falling back to dummy supervision.
+
+A [five-cut SPEAR cb8 example](data/README.md) is available under `data/`, with
+real audio/target references and a short single-teacher training command.
 
 Audio and target storage paths follow Lhotse's normal resolution from the process
 working directory. Prefer absolute paths in prepared manifests so moving from
