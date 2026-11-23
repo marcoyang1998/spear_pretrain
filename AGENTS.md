@@ -4,9 +4,11 @@ Run commands from this project root. The copied model files use intra-folder
 imports; launchers supply `PYTHONPATH=${ICEFALL_ROOT:-../icefall}`.
 
 Read README.md and REPRODUCTION_PLAN.md before changing scope. Initial data input
-is exactly one prepared LibriSpeech CutSet jsonl.gz. Additional manifests, teacher
-target preparation/joining, auxiliary supervised tasks, and downstream export are
-future work. Student output is 50 Hz: WavLM targets align directly, Dasheng targets
+is exactly one prepared LibriSpeech CutSet jsonl.gz. Offline teacher embedding
+collection, MVQ fitting, label extraction and preparation live under `mvq/`,
+using SPEAR XLarge v2 as the example; keep teacher loading out of the trainer.
+Additional training manifests, auxiliary supervised tasks and downstream export
+are future work. Student output is 50 Hz: WavLM targets align directly, Dasheng targets
 repeat twice; delta is applied afterward in 20 ms student frames.
 
 Preserve the unmodified backbone/optimizer copies listed in SOURCE_SHA256.json.

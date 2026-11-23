@@ -1,7 +1,12 @@
 # Minimal SPEAR-style MVQ pre-training reproduction
 
 Implementation-ready plan, 2026-11-19, incorporating the user's scope decisions.
-The project has been implemented according to this scope. See README.md for
+The project has been implemented according to the initial scope below. The user
+extended it on 2026-11-21 to include offline MVQ preparation under `mvq/`: local
+SPEAR XLarge v2 embedding collection, optional bounded-memory codebook fitting,
+label extraction and a training-ready CutSet. This extension keeps teacher
+execution outside the trainer and retains one prepared training manifest.
+See mvq/README.md for the added pipeline, and README.md for
 commands and VALIDATION.md for verification results. The initial student output rate
 is 50 Hz; other architecture and training settings retain reference defaults and
 remain configurable. No further scope decisions are required before implementation.
@@ -51,7 +56,7 @@ The user accepted these scope choices:
 | --- | --- |
 | Data | One LibriSpeech manifest; additional manifests are future work, noted in code comments |
 | Dual-teacher routing | Configurable teacher eligibility; default to original speech/audio routing |
-| MVQ preparation | Excluded; input already references prepared targets |
+| MVQ preparation | Initially excluded; added under `mvq/` by the 2026-11-21 scope extension |
 | Token mixing and auxiliary tasks | Keep token mixing; omit supervised audio tagging and downstream fine-tuning |
 | Project independence | Copy required recipe/model code locally; retain explicit sibling icefall dependency |
 | Teacher configuration | Inherit WavLM + Dasheng target metadata from the original recipe; keep it configurable |

@@ -84,3 +84,29 @@ one A100 GPU. It processed all five cuts / 63.67 seconds and saved
 `checkpoint-5.pt` with finite model and running-average tensors. The output
 directory override was honored, and all five preserved source hashes matched.
 Artifacts are under `exp/example-launcher-check.KQn6xX/`.
+
+## Offline MVQ preparation, 2026-11-21
+
+The preparation pipeline under `mvq/` passed ten CPU contract checks, Python
+syntax checks, and shell syntax checks. The existing CPU suite passed again.
+SLURM job **681359** completed in four minutes with exit `0:0`, using two A100
+GPUs and the existing encoder environment. It ran the full existing GPU smoke
+suite, then exercised the real local SPEAR XLarge v2 model and the five-cut sample.
+
+| Preparation check | Result |
+| --- | --- |
+| Existing quantizer extraction | All five cuts / 63.67 seconds retained and verified |
+| One/two-GPU extraction with loader workers | Exact label equality; original cut order/identity preserved |
+| Embedding collection | 3,165 valid frames, 1280-dimensional float32, native HDF5 arrays |
+| Normalized MVQ fitting | 25 updates across both phases; final centers `[8,256,1280]` |
+| Live extraction with fitted quantizer | Exact match to encoding the collected embeddings with saved normalization |
+| Optional original SPEAR wrapper parity | Exact output/length match on real audio with nonzero cut start |
+| Training compatibility | Existing loader retains every cut; five student updates and finite model/average checkpoint |
+| Manifest provenance | Input/model/config/code/quantizer fingerprints saved; output hashes verified |
+| Source integrity | Root five preserved copies and all five vendored SPEAR files match their recorded hashes |
+
+Artifacts are under `exp/mvq-check.OHfBu8/`; `one/labels.jsonl.gz` uses the
+existing quantizer, and `fit/labels.jsonl.gz` uses the small newly fitted
+normalized quantizer. These are functional checks on five real cuts, without
+full-corpus quantizer training or extraction claims. Usage and stage controls
+are documented in [mvq/README.md](mvq/README.md).

@@ -76,3 +76,31 @@ SPEAR checkpoint.
 
 This is an implementation/objective reproduction. No published downstream scores
 or released-checkpoint reproduction are claimed by synthetic smoke verification.
+
+## Offline SPEAR MVQ preparation, added 2026-11-21
+
+The user extended the initial scope to include preparation under `mvq/`.
+`mvq/spear_hf/` vendors `configuration_spear.py`, `modeling_spear.py`,
+`spear_model.py`, `spear_modules.py`, and `zipformer.py` byte-for-byte from
+`/storage/home/yangxiaoyu/models/spear-xlarge-speech-audio-v2`, the local published
+[marcoyang/spear-xlarge-speech-audio-v2](https://huggingface.co/marcoyang/spear-xlarge-speech-audio-v2)
+artifact. Hashes are in `mvq/SOURCE_SHA256.json`; existing notices remain intact.
+The root backbone/optimizer copies remain unchanged.
+
+The reference preparation workflow is `unified_encoder/spear/model.py`,
+`spear/collect_embeddings.py`, `spear/extract_mvq.py`, and
+`local/train_mvq_streaming.py`. New code retains bf16 teacher compute, float32
+embeddings, 50 Hz TemporalArrays, the package codec with `as_bytes=False`, and
+the historical `(embedding - mean) / std` normalization. The optional configurable
+trainer retains the package's two-phase algorithm with the reference's
+sqrt(codebook_size) initialization. The new streaming trainer preserves float32
+instead of staging embeddings in float16 and uses a bounded shuffle buffer.
+
+Intentional preparation changes: strict local-only model loading; checkpoint
+shape/normalization/provenance validation; finite-value checks; absolute audio
+paths; exact duplicate/identity/coverage checks; duration batching that includes
+every partial tail; per-rank HDF5 writers; disk-backed joining in input order;
+atomic final manifests; and model/config/code/quantizer fingerprints. The pipeline
+accepts one CutSet and does not implement corpus mixing or external teacher joining.
+The five-cut fitting example is a functional check and does not reproduce the
+historical quantizer's LibriSpeech + AudioSet + GigaSpeech training population.

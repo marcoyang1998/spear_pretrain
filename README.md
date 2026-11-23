@@ -7,9 +7,11 @@ scaling kernels, input masking, in-batch waveform/token mixing, independent MVQ
 prediction heads, ScaledAdam/Eden, mixed precision, DDP, validation, checkpoint
 averaging, and resume.
 
-Teacher embedding collection, quantizer training, target extraction/joining,
-supervised audio tagging, fine-tuning, decoding, SHAR, and extra manifests are
-outside this project. See [REPRODUCTION_PLAN.md](REPRODUCTION_PLAN.md) and
+The [offline MVQ preparation pipeline](mvq/README.md) collects SPEAR XLarge v2
+embeddings, optionally fits quantizers, and prepares target-bearing training
+CutSets. All preparation code lives under `mvq/`; teacher models run only there.
+Supervised audio tagging, fine-tuning, decoding, SHAR, and extra training manifests
+are outside this project. See [REPRODUCTION_PLAN.md](REPRODUCTION_PLAN.md) and
 [PROVENANCE.md](PROVENANCE.md) for scope and source history.
 
 ## Run from this project root
@@ -126,8 +128,9 @@ supported through Lhotse. Uint8/uint16 IDs are converted to int64 before negativ
 padding, mixing, or loss computation; floating-point and out-of-range targets
 are rejected.
 
-Both teacher fields reside on the **same input cut**. Attach/join targets outside
-this project before training. The common single-teacher field `codebook_indexes`
+Both teacher fields reside on the **same input cut**. Prepare targets before
+training; [mvq/](mvq/README.md) provides the SPEAR example pipeline.
+The common single-teacher field `codebook_indexes`
 can be selected with `--teacher-fields codebook_indexes,dasheng_codebook_indexes`.
 Missing inactive-teacher fields are allowed. Missing/corrupt active targets fail
 with cut/teacher context, rather than falling back to dummy supervision.
